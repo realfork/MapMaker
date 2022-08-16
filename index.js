@@ -1,10 +1,15 @@
 /// <reference types="../CTAutocomplete" />
 import { scanSurface } from "./Utils/Scanner"
-import { colorGrass } from "./Utils/GrassColorizer"
+import { colorGrass, colorLeaves } from "./Utils/Colorizer"
 
-const radius = 64
+const radius = 128
+
+// maybe add foliage?
+// different res texture pack support?
 
 register("command", () => {
+    // add radius as argument
+
     new Thread(() => {
         let blocks = scanSurface(radius)
 
@@ -19,7 +24,8 @@ register("command", () => {
             if (pos != null) {
                 let block = World.getBlockAt(pos)
 
-                // add texture caching
+                // add texture caching for more speeds
+
                 let textureSprite = Client.getMinecraft().func_175602_ab().func_175023_a().func_178122_a(block.getState())    
                 
                 let iconName = textureSprite.func_94215_i() + ".png"
@@ -32,12 +38,9 @@ register("command", () => {
     
                 image = net.minecraft.client.renderer.texture.TextureUtil.func_177053_a(Client.getMinecraft().func_110442_L().func_110536_a(resourceLocation).func_110527_b())
 
-                // ADD GRASS COLORING
-                //if (block.type.getRegistryName() == "minecraft:grass") colorGrass(image, pos.toMCBlock())
-    
-                // get image from location
-                // draw images
-                //javax.imageio.ImageIO.write(image, "png", new java.io.File(`./config/ChatTriggers/modules/MapGenerator/Maps/Map-${new java.io.File("./config/ChatTriggers/modules/MapGenerator/Maps").list().length + 1}.png`))
+                // Grass and Leaf coloring
+                if (block.type.getRegistryName() == "minecraft:grass" || block.type.getRegistryName().includes("leaves")) image = colorGrass(image, pos.toMCBlock())
+            // Makes air white
             } else image.getRaster().getDataBuffer().getData().fill(java.awt.Color.WHITE.getRGB())
 
             images.push(image)
@@ -48,11 +51,12 @@ register("command", () => {
         ChatLib.chat("\n§3[Map§bMaker] §rBeginning map render!")
         startTime = java.lang.System.currentTimeMillis()
 
+        // Create map image
         let map = new java.awt.image.BufferedImage(Math.ceil(Math.sqrt(images.length)) * 16, Math.ceil(Math.sqrt(images.length)) * 16, java.awt.image.BufferedImage.TYPE_INT_ARGB)
         map.getRaster().getDataBuffer().getData().fill(java.awt.Color.WHITE.getRGB())
-
         let graphics = map.createGraphics()
 
+        // Draw each image onto map
         let counter = 0
         for (let x = 0; x < radius * 2; x++) {
             for (let y = 0; y < radius * 2; y++) {
@@ -64,6 +68,7 @@ register("command", () => {
         }
         ChatLib.chat(`§3[Map§bMaker] §rFinished rendering map in ${java.lang.System.currentTimeMillis() - startTime}ms!`)
 
+        // Save map to maps folder
         javax.imageio.ImageIO.write(map, "png", new java.io.File(`./config/ChatTriggers/modules/MapGenerator/Maps/Map-${new java.io.File("./config/ChatTriggers/modules/MapGenerator/Maps").list().length + 1}.png`))
     
         new TextComponent(`\n§3[Map§bMaker] §rMap complete! Click to open!`)

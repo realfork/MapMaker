@@ -5,14 +5,13 @@ export function scanSurface(radius) {
 
     for (let x = 0; x < radius * 2; x++) {
         for (let z = 0; z < radius * 2; z++) {
-            let pos = new BlockPos(Player.getX() - (radius / 2) + x, 0, Player.getZ() - (radius / 2) + z)
+            let pos = new BlockPos(Player.getX() - radius + x, 0, Player.getZ() - radius + z)
 
-            let height = World.getChunk(pos.x, 0, pos.z).chunk.func_76611_b(pos.x % 16, pos.z % 16)
+            let height = World.getChunk(pos.x, 0, pos.z).chunk.func_76611_b(Math.abs(pos.x % 16), Math.abs(pos.z % 16))
             pos = pos.up(height - 1)
 
-            // add transparency checks
-            //if (World.getBlockAt(pos).type.mcBlock.func_149730_j()) blocks.push(pos)
-            //else blocks.push(null)
+            // Add foliage checks
+
             if (World.getBlockAt(pos).type.getRegistryName() == "minecraft:air") blocks.push(null)
             else blocks.push(pos)
         }
