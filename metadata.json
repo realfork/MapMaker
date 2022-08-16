@@ -1,0 +1,7 @@
+{
+  "name": "MapCreator",
+  "creator": "fork",
+  "version": "1.0.0",
+  "entry": "index.js",
+  "description": "Generates high quality map images of your surroundings!"
+}
