@@ -93,6 +93,7 @@ register("command", (...args) => {
     })
 }).setName("mapmaker")
 
+// Render status without stuttery chat issue (It's slightly bad)
 let percentage
 let timeElapsed
 let running = false
