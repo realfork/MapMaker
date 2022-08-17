@@ -1,19 +1,30 @@
-// add color caching for more speeds
+const grassCache = new Map()
+const leafCache = new Map()
 
 export function colorGrass(image, pos) {
     let color = new java.awt.Color(net.minecraft.world.biome.BiomeColorHelper.func_180286_a(World.getWorld(), pos))
-    let newImage = new java.awt.image.BufferedImage(image.getWidth(), image.getHeight(), java.awt.image.BufferedImage.TYPE_INT_ARGB)
 
-    multiply(image, newImage, color)
-    return newImage
+    if (!grassCache.has(color.toString())) {
+        let newImage = new java.awt.image.BufferedImage(image.getWidth(), image.getHeight(), java.awt.image.BufferedImage.TYPE_INT_ARGB)
+    
+        multiply(image, newImage, color)
+
+        grassCache.set(color.toString(), newImage)
+        return newImage
+    } else return grassCache.get(color.toString())
 }
 
 export function colorLeaves(image, pos) {
     let color = new java.awt.Color(net.minecraft.world.biome.BiomeColorHelper.func_180287_b(World.getWorld(), pos))
-    let newImage = new java.awt.image.BufferedImage(image.getWidth(), image.getHeight(), java.awt.image.BufferedImage.TYPE_INT_ARGB)
 
-    multiply(image, newImage, color)
-    return newImage
+    if (!leafCache.has(color.toString())) {
+        let newImage = new java.awt.image.BufferedImage(image.getWidth(), image.getHeight(), java.awt.image.BufferedImage.TYPE_INT_ARGB)
+
+        multiply(image, newImage, color)
+
+        leafCache.set(color.toString(), newImage)
+        return newImage
+    } else return leafCache.get(color.toString())
 }
 
 function multiply(original, newImage, color) {
