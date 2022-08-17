@@ -91,7 +91,7 @@ register("command", (...args) => {
             .setHover("show_text", `§7§oOpen image?`)
             .chat()
     })
-}).setName("mapper")
+}).setName("mapmaker")
 
 let percentage
 let timeElapsed
