@@ -11,5 +11,5 @@ There are a few bad workarounds because of bufferedimage but the code is mostly 
 If you use a lot of code from this please credit me, but don't worry if you are only borrowing a couple lines :)
 Enjoy! 
 
-Example:
+Example Map (1024x1024 blocks):
 ![Example Map (1024x1024 blocks)](./Maps/Map-Example.png)
