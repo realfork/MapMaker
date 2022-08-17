@@ -12,6 +12,8 @@ export function getTexture(block) {
                         
         let iconName = textureSprite.func_94215_i() + ".png"
         if (block.type.getRegistryName() == "minecraft:grass") iconName = "minecraft:blocks/grass_top.png"
+        else if (block.type.getRegistryName().includes("sandstone")) iconName = "minecraft:blocks/sandstone_top.png"
+        else if (block.type.getRegistryName().includes("log")) iconName = iconName.replace(".png", "_top.png")
         else if (block.type.mcBlock == net.minecraft.init.Blocks.field_150419_aX) iconName = "minecraft:blocks/mushroom_block_skin_red.png"
         else if (block.type.mcBlock == net.minecraft.init.Blocks.field_150420_aW) iconName = "minecraft:blocks/mushroom_block_skin_brown.png"
         else if (block.type.mcBlock instanceof net.minecraft.block.BlockOre && block.type.mcBlock != net.minecraft.init.Blocks.field_150449_bY) iconName = "minecraft:blocks/stone.png"
