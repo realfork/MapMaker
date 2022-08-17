@@ -46,7 +46,7 @@ register("command", (...args) => {
                             // Coloring
                             if (underBlock.type.getRegistryName() == "minecraft:grass") bugFixer2.createGraphics().drawImage(colorGrass(underlayImage, underBlock.pos.toMCBlock()), 0, 0, null)
                             else bugFixer2.createGraphics().drawImage(underlayImage, 0, 0, null)
-                            
+
                             bugFixer2.createGraphics().drawImage(bugFixer, 0, 0, null)
                             bugFixer = bugFixer2
                             break
@@ -67,7 +67,6 @@ register("command", (...args) => {
 
         // Create map image
         let map = new java.awt.image.BufferedImage(Math.ceil(Math.sqrt(images.length)) * 16, Math.ceil(Math.sqrt(images.length)) * 16, java.awt.image.BufferedImage.TYPE_INT_ARGB)
-        map.getRaster().getDataBuffer().getData().fill(java.awt.Color.WHITE.getRGB())
         let graphics = map.createGraphics()
 
         // Draw each image onto map
