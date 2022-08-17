@@ -2,7 +2,7 @@
 
 Creates maps of the area around you!
 
-Usage: /mapmaker <radius>
+Usage: /mapmaker \<radius\>
 
 Only works with 16x texture packs. You can edit it to use other resolutions with relative ease.
 
